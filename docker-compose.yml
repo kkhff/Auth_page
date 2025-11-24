@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  auth-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auth-web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html/
+      - ./docker/apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
+    env_file:
+      - .env
+    command: sh -c "a2enmod rewrite && apache2-foreground"
+    depends_on:
+      - auth-db
+    restart: always
+
+  auth-db:
+    image: mysql:8.0
+    container_name: auth-db
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASS}"
+    volumes:
+      - auth_db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: auth-phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: "${DB_HOST}"
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
+    depends_on:
+      - auth-db
+
+volumes:
+  auth_db_data:
