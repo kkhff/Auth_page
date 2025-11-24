@@ -12,7 +12,7 @@ Pastikan Anda telah menginstal:
 **Cara Menjalankan**
 1. **Kloning Repositori:**
     ``` Bash
-    https://github.com/kkhff/auth_page.git
+    https://github.com/kkhff/Auth_page.git
     auth_page
     ```
 2. **Siapkan Konfigurasi Lingkungan:** Salin file template lingkungan dan sesuaikan nilainya:
