@@ -35,7 +35,7 @@ Proyek ini membutuhkan database untuk menyimpan data pengguna.
 1. **Kredensial Database**
 
     Pastikan file .env telah diatur dengan benar:
-    ``` TOML
+    ``` Ini, TOML
     DB_HOST=auth-db
     DB_ROOT_PASS=[Root Password Anda]
     DB_USERNAME=[Username Anda]
