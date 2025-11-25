@@ -75,3 +75,24 @@ Proyek ini membutuhkan database untuk menyimpan data pengguna.
 | `views/auth/auth.php` |**Tampilan Otentikasi**|Berisi markup HTML untuk formulir **Login** dan **Registrasi**.| 
 | `views/dashboard/dashboard.php` |**Tampilan Halaman Utama**|Berisi markup HTML dari halaman yang ditampilkan **setelah login berhasil**. Halaman ini harus selalu diawali dengan pemeriksaan sesi.| 
 | `views/layout/header.php & footer.php` |**Komponen Layout**|Berisi elemen UI yang berulang di setiap halaman, seperti navigation bar atau `<head>` HTML, untuk konsistensi tampilan.| 
+
+## PERHATIAN PENTING: INISIALISASI ULANG DATABASE
+
+Karena adanya perubahan pada kredensial default database, jika Anda sebelumnya pernah menjalankan proyek ini, Anda MUNGKIN perlu menghapus volume database lokal Anda untuk menghindari error `Access Denied` atau `Connection refused`.
+
+**Hapus Volume Data (Lakukan ini jika Anda mendapatkan error koneksi):**
+
+1. **Hentikan dan Hapus Container yang Berjalan**
+
+    Pastikan semua container yang terkait dengan proyek ini dihentikan dan dihapus, termasuk volume-nya:
+
+    ``` Bash
+    docker-compose down -v
+    ```
+2. **Jalankan Ulang Proyek**
+
+    Setelah volume dihapus, jalankan ulang proyek. MySQL akan memulai dari awal dan menggunakan variabel `$DB_USER` (misalnya, `sayadmin`) dan `$DB_PASS` (misalnya, `onlyuser`) dari file `.env` Anda untuk inisialisasi.
+
+    ``` Bash
+    docker-compose up --build -d
+    ```
