@@ -38,9 +38,9 @@ Proyek ini membutuhkan database untuk menyimpan data pengguna.
     ``` Ini, TOML
     DB_HOST=auth-db
     DB_ROOT_PASS=[Root Password Anda]
-    DB_USERNAME=[Username Anda]
-    DB_PASSWORD=[Password Anda]
-    DB_DATABASE=[Nama Database Anda]
+    DB_USER=[Username Anda]
+    DB_PASS=[Password Anda]
+    DB_NAME=[Nama Database Anda]
     ```
 2. **Skema Tabel**
 
