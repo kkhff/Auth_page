@@ -36,17 +36,25 @@ class AuthController {
     public function storeUser() {
         $username = trim($_POST['username']);
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+        $rawPassword = $_POST['password'];
+
+        $old_data = [
+            'username' => $username,
+            'email' => $_POST['email']
+        ];
+
         if (!$email) {
             $message = "Invalid email format.";
             $_SESSION['flash'] = ['message' => $message, 'type' => 'warning'];
+            $_SESSION['old_input'] = $old_data;
             header("Location: /signup");
             exit();
         }
-        $rawPassword = $_POST['password'];
 
         if($rawPassword !== $_POST['confirm_password']) {
             $message = "Passwords do not match.";
             $_SESSION['flash'] = ['message' => $message, 'type' => 'warning'];
+            $_SESSION['old_input'] = $old_data;
             header("Location: /signup");
             exit();
         }
@@ -54,6 +62,7 @@ class AuthController {
         if(strlen($rawPassword) < 8) {
             $message = "Password must be at least 8 characters long.";
             $_SESSION['flash'] = ['message' => $message, 'type' => 'warning'];
+            $_SESSION['old_input'] = $old_data;
             header("Location: /signup");
             exit();
         }
@@ -61,6 +70,7 @@ class AuthController {
         if($this->model->isDuplicate($username, $email)) {
             $message = "Username or email already exists.";
             $_SESSION['flash'] = ['message' => $message, 'type' => 'warning'];
+            $_SESSION['old_input'] = $old_data;
             header("Location: /signup");
             exit();
         }
@@ -88,6 +98,7 @@ class AuthController {
         } else {
             $message = "Registration failed due to a server error. Please try again.";
             $_SESSION['flash'] = ['message' => $message, 'type' => 'danger'];
+            $_SESSION['old_input'] = $old_data;
             header("Location: /signup");
             exit();
         }

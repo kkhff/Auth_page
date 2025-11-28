@@ -40,6 +40,10 @@ $action = $action ?? 'login';?>
           </div>
           <div class="card-body">
             <!-- Message -->
+            <?php
+              $old_input = isset($_SESSION['old_input']) ? $_SESSION['old_input'] : [];
+              unset($_SESSION['old_input']);
+            ?>
              <?php if(isset($_SESSION['flash'])):?>
                <div class="alert alert-<?php echo htmlspecialchars($_SESSION['flash']['type']) ?>" role="alert">
                 <?php echo htmlspecialchars($_SESSION['flash']['message']) ?>
@@ -50,13 +54,17 @@ $action = $action ?? 'login';?>
             ?>
             <form action="/regist" method="POST">
               <label for="username">Username</label>
-              <input type="text" class="form-control mb-3" id="username" name="username" autocomplete="off" style="background-color:#dadada;" required>
+              <input type="text" class="form-control  mb-3" 
+              value="<?php echo htmlspecialchars($old_input['username'] ?? ''); ?>" id="username" 
+              name="username" autocomplete="off" style="background-color:#dadada;" required>
               <label for="email">Email</label>
-              <input type="email" class="form-control mb-3" id="email" name="email" autocomplete="off" style="background-color:#dadada;" required>
+              <input type="email" class="form-control mb-3" 
+              value="<?php echo htmlspecialchars($old_input['email'] ?? ''); ?>"id="email" name="email" 
+              autocomplete="off" style="background-color:#dadada;" required>
               <label for="password">Password</label>
               <input type="password" name="password" id="password" class="form-control mb-3" minlength="8" style="background-color:#dadada;" required>
               <label for="confirm_password">Confirm Password</label>
-              <input type="password" name="confirm_password" id="confirm_password" class="form-control mb-3" minlength="8" style="background-color:#dadada;" required> 
+              <input type="password" name="confirm_password" id="confirm_password" class="form-control mb-3" style="background-color:#dadada;" required> 
               <button class="btn btn-outline-secondary" type="button" id="passwordToggle">👁️</button> <br>
               <button class="btn btn-primary mt-3" type="submit">Sign up</button> <br> <br>
               <p>already have an account? <a href="/login">Log in</a></p>

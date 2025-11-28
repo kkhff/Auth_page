@@ -15,11 +15,16 @@ services:
       - .env
     command: sh -c "a2enmod rewrite && apache2-foreground"
     depends_on:
-      - auth-db
+      auth-db:
+        condition: service_healthy
     restart: always
 
   auth-db:
     image: mysql:8.0
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
     container_name: auth-db
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
