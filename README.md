@@ -1,5 +1,5 @@
 # Auth-page
-Halaman login sederhana yang menggunakan PHP vanilla (tanpa framework) dan Bootstrap sebagai tampilannya.
+Halaman login sederhana yang menggunakan PHP Native (tanpa framework) dan Bootstrap sebagai tampilannya.
 
 ## Instalasi dan Deployment Cepat (Docker)
 Proyek ini menggunakan Docker untuk menyediakan lingkungan pengembangan yang konsisten (PHP + Apache + Database).
